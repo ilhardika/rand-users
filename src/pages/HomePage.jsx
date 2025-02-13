@@ -17,7 +17,7 @@ function HomePage() {
 
   const filteredUsers = users.filter(
     (user) =>
-      `${user.name.first} ${user.name.last} ${user.email}`
+      `${user.name.first} ${user.name.last} ${user.email} ${user.login.username}`
         .toLowerCase()
         .includes(searchTerm.toLowerCase()) &&
       (genderFilter === "" || user.gender === genderFilter)
@@ -67,26 +67,28 @@ function HomePage() {
   return (
     <div className="container mx-auto p-4">
       {error && <p className="text-red-500">{error}</p>}
-      <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <Filter
-        genderFilter={genderFilter}
-        setGenderFilter={setGenderFilter}
-        usersPerPage={usersPerPage}
-        setUsersPerPage={setUsersPerPage}
-        onResetFilters={handleResetFilters}
-      />
-      <UserTable
-        users={currentUsers}
-        onRowClick={handleRowClick}
-        onSort={handleSort}
-        sortConfig={sortConfig}
-      />
-      <Pagination
-        totalUsers={sortedUsers.length}
-        usersPerPage={usersPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Filter
+          genderFilter={genderFilter}
+          setGenderFilter={setGenderFilter}
+          usersPerPage={usersPerPage}
+          setUsersPerPage={setUsersPerPage}
+          onResetFilters={handleResetFilters}
+        />
+        <UserTable
+          users={currentUsers}
+          onRowClick={handleRowClick}
+          onSort={handleSort}
+          sortConfig={sortConfig}
+        />
+        <Pagination
+          totalUsers={sortedUsers.length}
+          usersPerPage={usersPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { Link, useNavigate } from "react-router-dom";
 import { ChevronUp, ChevronDown } from "lucide-react";
 
 function UserTable({ users, onRowClick, onSort, sortConfig }) {
