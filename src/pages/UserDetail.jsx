@@ -11,13 +11,13 @@ function UserDetail() {
   return (
     <div className="container mx-auto p-4">
       <div className="bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl mb-4 font-semibold">
+        <h1 className="text-2xl mb-4 font-semibold text-center">
           {user.name.title} {user.name.first} {user.name.last}
         </h1>
         <img
           src={user.picture.large}
           alt="User"
-          className="rounded-full mb-4 mx-auto"
+          className="rounded-full mb-10 mx-auto"
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <p>

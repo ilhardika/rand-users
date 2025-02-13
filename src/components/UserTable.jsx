@@ -21,7 +21,7 @@ function UserTable({ users, onRowClick, onSort, sortConfig }) {
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+      <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md text-left">
         <thead className="bg-gray-100">
           <tr>
             <th
