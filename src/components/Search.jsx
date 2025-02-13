@@ -5,7 +5,7 @@ function Search({ searchTerm, setSearchTerm }) {
       placeholder="Search users..."
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
-      className="border p-2 mb-4 w-full"
+      className="border p-2 mb-4 w-full rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
   );
 }

@@ -11,9 +11,9 @@ function Pagination({ totalUsers, usersPerPage, currentPage, setCurrentPage }) {
         <button
           key={index + 1}
           onClick={() => handleClick(index + 1)}
-          className={`px-4 py-2 mx-1 border rounded ${
+          className={`px-4 py-2 mx-1 border rounded-lg shadow-sm ${
             currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-white"
-          }`}
+          } hover:bg-gray-100`}
         >
           {index + 1}
         </button>

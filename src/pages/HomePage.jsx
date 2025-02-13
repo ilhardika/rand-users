@@ -12,6 +12,7 @@ function HomePage() {
   const [genderFilter, setGenderFilter] = useState("");
   const [usersPerPage, setUsersPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const navigate = useNavigate();
 
   const filteredUsers = users.filter(
@@ -22,12 +23,45 @@ function HomePage() {
       (genderFilter === "" || user.gender === genderFilter)
   );
 
+  const getNestedValue = (obj, key) => {
+    return key.split(".").reduce((acc, part) => acc && acc[part], obj);
+  };
+
+  const sortedUsers = [...filteredUsers].sort((a, b) => {
+    if (sortConfig.key) {
+      const aValue = getNestedValue(a, sortConfig.key);
+      const bValue = getNestedValue(b, sortConfig.key);
+      if (aValue < bValue) {
+        return sortConfig.direction === "ascending" ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return sortConfig.direction === "ascending" ? 1 : -1;
+      }
+    }
+    return 0;
+  });
+
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = sortedUsers.slice(indexOfFirstUser, indexOfLastUser);
 
   const handleRowClick = (user) => {
     navigate(`/user/${user.login.uuid}`, { state: { user } });
+  };
+
+  const handleResetFilters = () => {
+    setSearchTerm("");
+    setGenderFilter("");
+    setUsersPerPage(10);
+    setCurrentPage(1);
+  };
+
+  const handleSort = (key) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
   };
 
   return (
@@ -39,10 +73,16 @@ function HomePage() {
         setGenderFilter={setGenderFilter}
         usersPerPage={usersPerPage}
         setUsersPerPage={setUsersPerPage}
+        onResetFilters={handleResetFilters}
       />
-      <UserTable users={currentUsers} onRowClick={handleRowClick} />
+      <UserTable
+        users={currentUsers}
+        onRowClick={handleRowClick}
+        onSort={handleSort}
+        sortConfig={sortConfig}
+      />
       <Pagination
-        totalUsers={filteredUsers.length}
+        totalUsers={sortedUsers.length}
         usersPerPage={usersPerPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
