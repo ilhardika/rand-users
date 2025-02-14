@@ -2,7 +2,7 @@ import { Search, Users, SlidersHorizontal, ArrowUpDown } from "lucide-react";
 
 function Hero() {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white p-16 rounded-3xl shadow-2xl mb-8">
+    <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white p-16 shadow-2xl mb-8">
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
           Discover and Explore

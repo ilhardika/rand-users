@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useUsers } from "../hooks/useUsers";
+import { useNavigate } from "react-router-dom";
 import UserTable from "./UserTable";
 import Search from "./Search";
 import Pagination from "./Pagination";
 import Filter from "./Filter";
-import { useNavigate } from "react-router-dom";
 
 function UserManagement() {
   const { users, error } = useUsers();
@@ -65,28 +65,38 @@ function UserManagement() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      {error && <p className="text-red-500">{error}</p>}
-      <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <Filter
-        genderFilter={genderFilter}
-        setGenderFilter={setGenderFilter}
-        usersPerPage={usersPerPage}
-        setUsersPerPage={setUsersPerPage}
-        onResetFilters={handleResetFilters}
-      />
-      <UserTable
-        users={currentUsers}
-        onRowClick={handleRowClick}
-        onSort={handleSort}
-        sortConfig={sortConfig}
-      />
-      <Pagination
-        totalUsers={sortedUsers.length}
-        usersPerPage={usersPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div className="p-6">
+          {error && (
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600">
+              {error}
+            </div>
+          )}
+          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <Filter
+            genderFilter={genderFilter}
+            setGenderFilter={setGenderFilter}
+            usersPerPage={usersPerPage}
+            setUsersPerPage={setUsersPerPage}
+            onResetFilters={handleResetFilters}
+          />
+          <UserTable
+            users={currentUsers}
+            onRowClick={handleRowClick}
+            onSort={handleSort}
+            sortConfig={sortConfig}
+          />
+          <div className="mt-6">
+            <Pagination
+              totalUsers={sortedUsers.length}
+              usersPerPage={usersPerPage}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
