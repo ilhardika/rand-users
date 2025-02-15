@@ -1,19 +1,36 @@
-import { useState } from "react";
-import { useUsers } from "../hooks/useUsers";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {
+  fetchUsers,
+  setSearchTerm,
+  setGenderFilter,
+  setUsersPerPage,
+  setCurrentPage,
+  setSortConfig,
+} from "../store/slices/usersSlice";
 import UserTable from "./UserTable";
 import Search from "./Search";
 import Pagination from "./Pagination";
 import Filter from "./Filter";
 
 function UserManagement() {
-  const { users, error } = useUsers();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [genderFilter, setGenderFilter] = useState("");
-  const [usersPerPage, setUsersPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {
+    items: users,
+    loading,
+    error,
+    searchTerm,
+    genderFilter,
+    currentPage,
+    usersPerPage,
+    sortConfig,
+  } = useSelector((state) => state.users);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   const filteredUsers = users.filter(
     (user) =>
@@ -50,10 +67,10 @@ function UserManagement() {
   };
 
   const handleResetFilters = () => {
-    setSearchTerm("");
-    setGenderFilter("");
-    setUsersPerPage(10);
-    setCurrentPage(1);
+    dispatch(setSearchTerm(""));
+    dispatch(setGenderFilter(""));
+    dispatch(setUsersPerPage(10));
+    dispatch(setCurrentPage(1));
   };
 
   const handleSort = (key) => {
@@ -61,24 +78,23 @@ function UserManagement() {
     if (sortConfig.key === key && sortConfig.direction === "ascending") {
       direction = "descending";
     }
-    setSortConfig({ key, direction });
+    dispatch(setSortConfig({ key, direction }));
   };
 
   return (
     <div className="container py-4">
       <div className="card shadow">
         <div className="card-body">
-          {error && (
-            <div className="alert alert-danger mb-4">
-              {error}
-            </div>
-          )}
-          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          {error && <div className="alert alert-danger mb-4">{error}</div>}
+          <Search
+            searchTerm={searchTerm}
+            setSearchTerm={(term) => dispatch(setSearchTerm(term))}
+          />
           <Filter
             genderFilter={genderFilter}
-            setGenderFilter={setGenderFilter}
+            setGenderFilter={(filter) => dispatch(setGenderFilter(filter))}
             usersPerPage={usersPerPage}
-            setUsersPerPage={setUsersPerPage}
+            setUsersPerPage={(num) => dispatch(setUsersPerPage(num))}
             onResetFilters={handleResetFilters}
           />
           <UserTable
@@ -92,7 +108,7 @@ function UserManagement() {
               totalUsers={sortedUsers.length}
               usersPerPage={usersPerPage}
               currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
+              setCurrentPage={(page) => dispatch(setCurrentPage(page))}
             />
           </div>
         </div>
