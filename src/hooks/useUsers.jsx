@@ -1,46 +1,55 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+const fetchRandomUsers = async (count = 1) => {
+  const params = {
+    results: count,
+    inc: [
+      "gender",
+      "name",
+      "location",
+      "email",
+      "login",
+      "dob",
+      "registered",
+      "phone",
+      "cell",
+      "id",
+      "picture",
+      "nat",
+    ].join(","),
+  };
+
+  try {
+    const response = await axios.get("https://randomuser.me/api/", { params });
+    return response.data.results;
+  } catch (error) {
+    throw new Error(
+      "An error occurred while fetching users. Please try again later."
+    );
+  }
+};
+
 export function useUsers() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const loadUsers = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://randomuser.me/api/", {
-          params: {
-            results: 100,
-            inc: [
-              "gender",
-              "name",
-              "location",
-              "email",
-              "login",
-              "dob",
-              "registered",
-              "phone",
-              "cell",
-              "id",
-              "picture",
-              "nat",
-            ].join(","),
-          },
-        });
-        setUsers(response.data.results);
+        const results = await fetchRandomUsers(100);
+        setUsers(results);
       } catch (error) {
         console.error("Error fetching users:", error);
-        setError(
-          "An error occurred while fetching users. Please try again later."
-        );
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsers();
+    loadUsers();
   }, []);
 
   const addUser = (user) => {
@@ -77,39 +86,20 @@ export function useRandomUser() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchRandomUser = async () => {
+    const loadRandomUser = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://randomuser.me/api/", {
-          params: {
-            inc: [
-              "gender",
-              "name",
-              "location",
-              "email",
-              "login",
-              "dob",
-              "registered",
-              "phone",
-              "cell",
-              "id",
-              "picture",
-              "nat",
-            ].join(","),
-          },
-        });
-        setUser(response.data.results[0]);
+        const [result] = await fetchRandomUsers(1);
+        setUser(result);
       } catch (error) {
         console.error("Error fetching user:", error);
-        setError(
-          "An error occurred while fetching the user. Please try again later."
-        );
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchRandomUser();
+    loadRandomUser();
   }, []);
 
   return { user, error, loading };
