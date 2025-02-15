@@ -18,111 +18,144 @@ function UserDetail() {
   const { user } = location.state;
 
   if (!user) {
-    return <p>User not found</p>;
+    return <div className="alert alert-danger">User not found</div>;
   }
 
   const sections = [
     {
       title: "Personal Information",
-      icon: <User className="w-5 h-5 text-blue-600" />,
+      icon: <User className="text-primary" size={20} />,
       items: [
         {
           label: "Gender",
           value: user.gender,
-          icon: <User className="w-4 h-4 text-gray-400" />,
+          icon: <User className="text-secondary" size={16} />,
         },
         {
           label: "Date of Birth",
           value: `${new Date(user.dob.date).toLocaleDateString()} (Age: ${
             user.dob.age
           })`,
-          icon: <Calendar className="w-4 h-4 text-gray-400" />,
+          icon: <Calendar className="text-secondary" size={16} />,
         },
         {
           label: "Nationality",
           value: user.nat,
-          icon: <Flag className="w-4 h-4 text-gray-400" />,
+          icon: <Flag className="text-secondary" size={16} />,
         },
       ],
     },
     {
       title: "Contact Details",
-      icon: <Phone className="w-5 h-5 text-green-600" />,
+      icon: <Phone className="text-success" size={20} />,
       items: [
         {
           label: "Email",
           value: user.email,
-          icon: <Mail className="w-4 h-4 text-gray-400" />,
+          icon: <Mail className="text-secondary" size={16} />,
         },
         {
           label: "Phone",
           value: user.phone,
-          icon: <Phone className="w-4 h-4 text-gray-400" />,
+          icon: <Phone className="text-secondary" size={16} />,
         },
         {
           label: "Cell",
           value: user.cell,
-          icon: <Phone className="w-4 h-4 text-gray-400" />,
+          icon: <Phone className="text-secondary" size={16} />,
         },
       ],
     },
     {
       title: "Location",
-      icon: <MapPin className="w-5 h-5" />,
+      icon: <MapPin className="text-danger" size={20} />,
       items: [
         {
           label: "Address",
           value: `${user.location.street.number} ${user.location.street.name}`,
+          icon: <MapPin className="text-secondary" size={16} />,
         },
-        { label: "City", value: user.location.city },
-        { label: "State", value: user.location.state },
-        { label: "Country", value: user.location.country },
-        { label: "Postcode", value: user.location.postcode },
+        {
+          label: "City",
+          value: user.location.city,
+          icon: <MapPin className="text-secondary" size={16} />,
+        },
+        {
+          label: "State",
+          value: user.location.state,
+          icon: <MapPin className="text-secondary" size={16} />,
+        },
+        {
+          label: "Country",
+          value: user.location.country,
+          icon: <Globe className="text-secondary" size={16} />,
+        },
+        {
+          label: "Postcode",
+          value: user.location.postcode,
+          icon: <MapPin className="text-secondary" size={16} />,
+        },
         {
           label: "Coordinates",
           value: `${user.location.coordinates.latitude}, ${user.location.coordinates.longitude}`,
+          icon: <MapPin className="text-secondary" size={16} />,
         },
       ],
     },
     {
       title: "Account Information",
-      icon: <Shield className="w-5 h-5" />,
+      icon: <Shield className="text-warning" size={20} />,
       items: [
-        { label: "Username", value: user.login.username },
+        {
+          label: "Username",
+          value: user.login.username,
+          icon: <User className="text-secondary" size={16} />,
+        },
         {
           label: "Registered",
           value: `${new Date(user.registered.date).toLocaleDateString()} (${
             user.registered.age
           } years)`,
+          icon: <Clock className="text-secondary" size={16} />,
         },
       ],
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-vh-100 bg-light py-4">
+      <div className="container" style={{ maxWidth: "1000px" }}>
         <button
           onClick={() => navigate(-1)}
-          className="group flex items-center text-gray-600 hover:text-blue-600 mb-6 transition-colors"
+          className="btn btn-link text-decoration-none text-secondary mb-4 p-0"
         >
-          <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
-          <span className="font-medium">Back to Users</span>
+          <ArrowLeft className="me-2" size={20} />
+          <span className="fw-medium">Back to Users</span>
         </button>
 
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-          {/* Enhanced Header */}
-          <div className="relative h-64 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400">
-            <div className="absolute inset-0 bg-blue-600 opacity-10 background-pattern"></div>
-            <div className="absolute -bottom-20 w-full flex justify-center">
-              <div className="relative">
+        <div className="card shadow-lg border-0 overflow-hidden">
+          {/* Profile Header */}
+          <div className="position-relative">
+            <div className="bg-primary p-5" style={{ height: "200px" }}>
+              <div className="bg-white bg-opacity-10 position-absolute top-0 start-0 w-100 h-100"></div>
+            </div>
+            <div
+              className="position-absolute start-50 translate-middle-x"
+              style={{ bottom: "-48px" }}
+            >
+              <div className="position-relative">
                 <img
                   src={user.picture.large}
                   alt={`${user.name.first} ${user.name.last}`}
-                  className="w-40 h-40 rounded-full border-4 border-white shadow-xl object-cover"
+                  className="rounded-circle border border-4 border-white shadow-lg"
+                  width="160"
+                  height="160"
                 />
-                <div className="absolute -bottom-2 left-0 w-full flex justify-center">
-                  <span className="px-4 py-1 bg-green-500 text-white text-sm font-medium rounded-full shadow-lg">
+                <div
+                  className="position-absolute start-50 translate-middle-x"
+                  style={{ bottom: "-12px" }}
+                >
+                  <span className="badge bg-success px-3 py-2 rounded-pill">
                     Active
                   </span>
                 </div>
@@ -130,41 +163,42 @@ function UserDetail() {
             </div>
           </div>
 
-          <div className="pt-24 pb-8 px-6">
-            <h1 className="text-4xl font-bold text-center text-gray-900 mb-2">
+          <div className="card-body pt-5 mt-5">
+            <h1 className="display-6 text-center fw-bold mb-1">
               {user.name.title} {user.name.first} {user.name.last}
             </h1>
-            <p className="text-center text-gray-500 mb-8">
+            <p className="text-center text-secondary mb-5">
               @{user.login.username}
             </p>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
+            <div className="row g-4">
               {sections.map((section) => (
-                <div
-                  key={section.title}
-                  className="bg-gray-50 rounded-xl p-6 border border-gray-100 hover:shadow-md transition-shadow"
-                >
-                  <div className="flex items-center gap-2 mb-6">
-                    {section.icon}
-                    <h2 className="text-lg font-semibold text-gray-900">
-                      {section.title}
-                    </h2>
-                  </div>
-                  <div className="space-y-4">
-                    {section.items.map((item) => (
-                      <div
-                        key={item.label}
-                        className="flex items-start gap-3 p-3 bg-white rounded-lg border border-gray-100"
-                      >
-                        {item.icon}
-                        <div className="flex flex-col">
-                          <span className="text-sm font-medium text-gray-500">
-                            {item.label}
-                          </span>
-                          <span className="text-gray-900">{item.value}</span>
-                        </div>
+                <div key={section.title} className="col-12 col-md-6">
+                  <div className="card h-100 bg-light border-0">
+                    <div className="card-body">
+                      <div className="d-flex align-items-center mb-4">
+                        {section.icon}
+                        <h2 className="h5 mb-0 ms-2">{section.title}</h2>
                       </div>
-                    ))}
+                      <div className="d-flex flex-column gap-3">
+                        {section.items.map((item) => (
+                          <div
+                            key={item.label}
+                            className="card bg-white border-0 shadow-sm"
+                          >
+                            <div className="card-body d-flex align-items-start p-3">
+                              {item.icon}
+                              <div className="ms-3">
+                                <div className="text-secondary small fw-medium">
+                                  {item.label}
+                                </div>
+                                <div>{item.value}</div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
