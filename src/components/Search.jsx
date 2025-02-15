@@ -2,14 +2,16 @@ import { Search as SearchIcon } from "lucide-react";
 
 function Search({ searchTerm, setSearchTerm }) {
   return (
-    <div className="relative mb-6">
-      <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+    <div className="position-relative mb-4">
+      <div className="position-absolute top-50 start-0 translate-middle-y ps-3">
+        <SearchIcon className="text-secondary" size={20} />
+      </div>
       <input
         type="text"
         placeholder="Search users..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+        className="form-control form-control-lg ps-5"
       />
     </div>
   );

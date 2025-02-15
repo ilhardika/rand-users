@@ -65,11 +65,11 @@ function UserManagement() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-        <div className="p-6">
+    <div className="container py-4">
+      <div className="card shadow">
+        <div className="card-body">
           {error && (
-            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600">
+            <div className="alert alert-danger mb-4">
               {error}
             </div>
           )}
@@ -87,7 +87,7 @@ function UserManagement() {
             onSort={handleSort}
             sortConfig={sortConfig}
           />
-          <div className="mt-6">
+          <div className="mt-4">
             <Pagination
               totalUsers={sortedUsers.length}
               usersPerPage={usersPerPage}

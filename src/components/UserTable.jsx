@@ -3,13 +3,15 @@ import { ChevronUp, ChevronDown } from "lucide-react";
 function UserTable({ users, onRowClick, onSort, sortConfig }) {
   const getClassNamesFor = (name) => {
     if (!sortConfig) return "";
-    return sortConfig.key === name ? "text-blue-600 bg-blue-50" : "";
+    return sortConfig.key === name
+      ? "text-primary bg-primary bg-opacity-10"
+      : "";
   };
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-200">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+    <div className="table-responsive rounded border">
+      <table className="table table-hover mb-0">
+        <thead className="table-light">
           <tr>
             {[
               { key: "login.username", label: "Username" },
@@ -21,51 +23,50 @@ function UserTable({ users, onRowClick, onSort, sortConfig }) {
               <th
                 key={key}
                 onClick={() => onSort(key)}
-                className={`px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors ${getClassNamesFor(
+                className={`text-nowrap ${getClassNamesFor(
                   key
-                )}`}
+                )} cursor-pointer`}
+                style={{ fontSize: "0.875rem" }}
               >
-                <div className="flex items-center gap-2">
+                <div className="d-flex align-items-center gap-2">
                   {label}
                   {sortConfig?.key === key &&
                     (sortConfig.direction === "ascending" ? (
-                      <ChevronUp className="w-4 h-4" />
+                      <ChevronUp size={16} />
                     ) : (
-                      <ChevronDown className="w-4 h-4" />
+                      <ChevronDown size={16} />
                     ))}
                 </div>
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody>
           {users.map((user) => (
             <tr
               key={user?.login?.uuid}
               onClick={() => onRowClick(user)}
-              className="hover:bg-gray-50 cursor-pointer transition-colors"
+              style={{ cursor: "pointer" }}
             >
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <td className="align-middle fw-medium">
                 {user?.login?.username}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <td className="align-middle">
                 {user?.name?.first} {user?.name?.last}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {user?.email}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <td className="align-middle">{user?.email}</td>
+              <td className="align-middle">
                 <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  className={`badge rounded-pill ${
                     user?.gender === "female"
-                      ? "bg-pink-100 text-pink-800"
-                      : "bg-blue-100 text-blue-800"
+                      ? "text-bg-danger bg-opacity-75"
+                      : "text-bg-primary bg-opacity-75"
                   }`}
                 >
                   {user?.gender}
                 </span>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <td className="align-middle">
                 {new Date(user?.registered?.date).toLocaleDateString()}
               </td>
             </tr>

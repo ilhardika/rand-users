@@ -32,43 +32,47 @@ function Pagination({ totalUsers, usersPerPage, currentPage, setCurrentPage }) {
   };
 
   return (
-    <div className="flex justify-center mt-4">
-      <button
-        onClick={handlePrevious}
-        className={`px-4 py-2 mx-1 border rounded-lg shadow-sm ${
-          currentPage === 1
-            ? "bg-gray-200 cursor-not-allowed"
-            : "bg-white hover:bg-gray-100"
-        }`}
-        disabled={currentPage === 1}
-      >
-        <ChevronLeft />
-      </button>
-      {getPageNumbers().map((pageNumber) => (
-        <button
-          key={pageNumber}
-          onClick={() => handleClick(pageNumber)}
-          className={`px-4 py-2 mx-1 border rounded-lg shadow-sm ${
-            currentPage === pageNumber
-              ? "bg-blue-500 text-white"
-              : "bg-white hover:bg-gray-100"
+    <nav className="d-flex justify-content-center ms-3">
+      <ul className="pagination">
+        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+          <button
+            className="page-link"
+            onClick={handlePrevious}
+            disabled={currentPage === 1}
+          >
+            <ChevronLeft size={18} />
+          </button>
+        </li>
+        {getPageNumbers().map((pageNumber) => (
+          <li
+            key={pageNumber}
+            className={`page-item ${
+              currentPage === pageNumber ? "active" : ""
+            }`}
+          >
+            <button
+              className="page-link"
+              onClick={() => handleClick(pageNumber)}
+            >
+              {pageNumber}
+            </button>
+          </li>
+        ))}
+        <li
+          className={`page-item ${
+            currentPage === totalPages ? "disabled" : ""
           }`}
         >
-          {pageNumber}
-        </button>
-      ))}
-      <button
-        onClick={handleNext}
-        className={`px-4 py-2 mx-1 border rounded-lg shadow-sm ${
-          currentPage === totalPages
-            ? "bg-gray-200 cursor-not-allowed"
-            : "bg-white hover:bg-gray-100"
-        }`}
-        disabled={currentPage === totalPages}
-      >
-        <ChevronRight />
-      </button>
-    </div>
+          <button
+            className="page-link"
+            onClick={handleNext}
+            disabled={currentPage === totalPages}
+          >
+            <ChevronRight size={18} />
+          </button>
+        </li>
+      </ul>
+    </nav>
   );
 }
 
