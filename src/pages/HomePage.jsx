@@ -3,7 +3,7 @@ import UserManagement from "../components/UserManagement";
 
 function HomePage() {
   return (
-    <div className="">
+    <div className="container-fluid p-0">
       <Hero />
       <UserManagement />
     </div>
