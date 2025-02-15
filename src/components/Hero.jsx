@@ -2,12 +2,17 @@ import { Search, Users, SlidersHorizontal, ArrowUpDown } from "lucide-react";
 
 function Hero() {
   return (
-    <div className="position-relative overflow-hidden bg-primary bg-gradient p-5 shadow mb-4">
-      <div className="position-relative z-3 container text-center">
-        <h1 className="display-3 fw-bold mb-4 text-white">
+    <div
+      className="position-relative overflow-hidden shadow-lg mb-4 py-5"
+      style={{ backgroundColor: "#0A2647" }} // Modern dark blue color
+    >
+      <div className="position-relative container text-center py-4">
+        <h1 className="display-2 fw-bold mb-4 text-white">
           Discover and Explore
           <br />
-          <span className="text-info-emphasis">Our User Directory</span>
+          <span className="text-info px-3 py-1 rounded-3">
+            Our User Directory
+          </span>
         </h1>
         <p
           className="lead text-white-50 mx-auto mb-5"
@@ -17,50 +22,35 @@ function Hero() {
           capabilities.
         </p>
 
-        <div className="row row-cols-2 row-cols-md-4 g-4 mb-5">
-          <div className="col">
-            <div className="card h-100 bg-white bg-opacity-5 border-0 hover-bg-opacity-10">
-              <div className="card-body text-center">
-                <Search className="text-info-emphasis mb-2" size={32} />
-                <span className="small fw-medium text-black ps-2">
-                  Smart Search
-                </span>
+        <div className="row row-cols-2 row-cols-md-4 g-4">
+          {[
+            { icon: <Search size={32} />, title: "Smart Search" },
+            {
+              icon: <SlidersHorizontal size={32} />,
+              title: "Advanced Filters",
+            },
+            { icon: <ArrowUpDown size={32} />, title: "Quick Sort" },
+            { icon: <Users size={32} />, title: "User Profiles" },
+          ].map((feature, index) => (
+            <div key={index} className="col">
+              <div
+                className="card h-100 border-0"
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+              >
+                <div className="card-body text-center p-4">
+                  <div
+                    className="d-inline-flex align-items-center justify-content-center rounded-3 p-3 mb-3"
+                    style={{ backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+                  >
+                    <div className="text-info">{feature.icon}</div>
+                  </div>
+                  <h5 className="fw-medium text-white mb-0 small">
+                    {feature.title}
+                  </h5>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col">
-            <div className="card h-100 bg-white bg-opacity-5 border-0 hover-bg-opacity-10">
-              <div className="card-body text-center">
-                <SlidersHorizontal
-                  className="text-info-emphasis mb-2"
-                  size={32}
-                />
-                <span className="small fw-medium text-black ps-2">
-                  Advanced Filters
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <div className="card h-100 bg-white bg-opacity-5 border-0 hover-bg-opacity-10">
-              <div className="card-body text-center">
-                <ArrowUpDown className="text-info-emphasis mb-2" size={32} />
-                <span className="small fw-medium text-black ps-2">
-                  Quick Sort
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <div className="card h-100 bg-white bg-opacity-5 border-0 hover-bg-opacity-10">
-              <div className="card-body text-center">
-                <Users className="text-info-emphasis mb-2" size={32} />
-                <span className="small fw-medium text-black ps-2">
-                  User Profiles
-                </span>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
