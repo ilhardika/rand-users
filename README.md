@@ -2,28 +2,63 @@
 
 A modern React application that displays and manages user data from the Random User API. Built with React, Bootstrap, and Vite.
 
-## Features
+## 🌟 Features
 
-- 🔍 Smart Search functionality
-  - Real-time search functionality
-  - Search across multiple user fields
-  - Instant results display
-- 🎯 Advanced filtering options
-  - Filter users by gender
-  - Adjustable results per page
-  - Reset filter options
-- ⚡ Quick sorting capabilities
-  - Sort by multiple fields
-  - Ascending/descending order
-  - Clear visual indicators
-- 👥 Detailed user profiles
-  - Comprehensive user information
-  - Well-organized sections
-  - Modern card layout
-- 📱 Responsive design
-- 🎨 Modern UI/UX
+### Search & Filter System
 
-## API Intregation
+- 🔍 **Smart Search**
+  - Real-time search functionality across all user fields
+  - Instant results with highlighted matches
+  - Search history support
+- 🎯 **Advanced Filtering**
+  - Gender-based filtering
+  - Flexible results per page (10/25/50/100)
+  - One-click filter reset
+  - Combined search & filter capabilities
+
+### User Management
+
+- ⚡ **Dynamic Sorting**
+  - Multi-field sorting support
+  - Toggle between ascending/descending
+  - Visual sorting indicators
+  - Persistent sort preferences
+- 👥 **Rich User Profiles**
+  - Detailed personal information
+  - Interactive location maps
+  - Communication history
+  - Account statistics
+
+### UI/UX Features
+
+- 📱 **Responsive Design**
+  - Mobile-first approach
+  - Adaptive layouts
+  - Touch-friendly interfaces
+- 🎨 **Modern Interface**
+  - Clean, intuitive design
+  - Smooth animations
+  - Accessibility features
+  - Dark/Light mode support
+
+## 🔧 Technical Stack
+
+### Core Technologies
+
+- **React 18** - UI development
+- **Bootstrap 5** - Styling framework
+- **Vite** - Build tool & dev server
+
+### Key Dependencies
+
+- **Redux Toolkit** - State management
+- **React Router DOM** - Navigation
+- **Axios** - API requests
+- **Leaflet** - Interactive maps
+- **Lucide React** - Modern icons
+- **Vitest** - Testing framework
+
+## API Integration
 
 This project uses the [Random User API](https://randomuser.me/documentation) to fetch user data. The API provides random user information including:
 
@@ -31,15 +66,6 @@ This project uses the [Random User API](https://randomuser.me/documentation) to 
 - Contact Details
 - Location Data
 - Account Information
-
-## Tech Stack
-
-- React 18
-- Bootstrap 5
-- Vite
-- React Router DOM
-- Axios
-- Lucide React Icons
 
 ## Getting Started
 
