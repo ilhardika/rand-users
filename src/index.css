@@ -15,3 +15,20 @@
   transform: translateY(-5px);
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
+
+/* Leaflet Map Styles */
+.leaflet-container {
+  z-index: 1;
+}
+
+.modal {
+  z-index: 1050;
+}
+
+.modal-backdrop {
+  z-index: 1040;
+}
+
+.leaflet-control-container {
+  display: none;
+}
